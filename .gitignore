@@ -24,3 +24,4 @@ yarn-error.log*
 
 #firebase
 src/utils/Firebase.js
+src/utils/constants.js
