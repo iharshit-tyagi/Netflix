@@ -1,27 +1,88 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./Header";
 import { validateData } from "../utils/Validate";
-
+import { auth } from "../utils/Firebase";
+import { addUser } from "../utils/userSlice";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [validationMessage, setValidationMessage] = useState(null);
   const email = useRef(null);
   const password = useRef(null);
-  const formType = useRef(null);
   const name = useRef(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch;
   const handleSubmit = () => {
-    console.log(formType.current.innerText);
-    console.log(password.current.value);
-    // console.log(name.current.value);
-    const validationResult =
-      formType.current.innerText === "Sign up"
-        ? validateData(
-            email.current.value,
-            password.current.value,
-            name.current.value
-          )
-        : validateData(email.current.value, password.current.value);
+    const validationResult = !isSignInForm
+      ? validateData(
+          email.current.value,
+          password.current.value,
+          name.current.value
+        )
+      : validateData(email.current.value, password.current.value);
     setValidationMessage(validationResult);
+
+    if (validationResult) return;
+    //Below sigin in /sign up user
+    if (isSignInForm) {
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+
+          setValidationMessage(errorCode + " -->" + errorMessage);
+        });
+    } else {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          updateProfile(auth.currentUser, {
+            displayName: name.current.value,
+          })
+            .then(() => {
+              // Profile updated!
+              // ...
+
+              const { email, displayName, uid } = auth.currentUser;
+              dispatch(
+                addUser({ email: email, displayName: displayName, uid: uid })
+              );
+            })
+            .catch((error) => {
+              // An error occurred
+              // ...
+            });
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // console.log(errorCode + "--> " + errorMessage);
+          setValidationMessage(errorCode + " -->" + errorMessage);
+          // ..
+        });
+    }
   };
   const toggleForm = () => {
     setIsSignInForm(!isSignInForm);
@@ -62,7 +123,6 @@ const Login = () => {
           ></input>
         )}
         <button
-          ref={formType}
           type="button"
           onSubmit={(e) => {
             e.preventDefault();
