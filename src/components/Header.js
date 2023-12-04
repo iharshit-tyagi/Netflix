@@ -41,7 +41,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between w-full bg-gradient-to-b from-black">
+    <div className="flex justify-between w-full  bg-gradient-to-b from-black absolute z-10 top-0">
       <img className="w-48 pl-4 pt-3   " src={NF_URL} alt="logo" />
       {user && (
         <div>
