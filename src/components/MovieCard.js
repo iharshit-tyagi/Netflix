@@ -1,8 +1,7 @@
 import { ORIGNAL_IMG_BASE_URL } from "../utils/constants";
-const MovieCard = ({ title, posterUrl }) => {
+const MovieCard = ({ posterUrl }) => {
   return (
-    <div>
-      {/* <h2>{title}</h2> */}
+    <div className=" ">
       <img src={ORIGNAL_IMG_BASE_URL + posterUrl} alt="movie-poster" />
     </div>
   );
