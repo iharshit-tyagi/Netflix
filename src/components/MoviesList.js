@@ -19,8 +19,10 @@ const MoviesList = ({ title, movies }) => {
     //     </div>
     //   </div>
     // </div>
-    <div className="">
-      <h2 className="text-2xl text-white font-semibold py-6 ">{title}</h2>
+    <div className="pl-6  ">
+      <h2 className="text-3xl text-white font-semibold pt-3 mb-8 pl-5 ">
+        {title}
+      </h2>
       <Slider
         className="w-full overflow-visible  transition-all box-border"
         {...sliderSettings}
