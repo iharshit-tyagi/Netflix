@@ -6,20 +6,37 @@ import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import usePopularMovies from "../hooks/usePopularMovies";
 import useUpcomingMovies from "../hooks/useUpcomingMovies";
 import useTrendingMovies from "../hooks/useTrendingMovies";
+import GptSearchPage from "./GptSearchPage";
+import { useSelector } from "react-redux";
+
 const Browse = () => {
   //Fetches now playing Movies and Update the store
+  const showGptSearchPage = useSelector((store) => store.gpt.showGptSearchPage);
   useNowPlayingMovies();
   useTopRatedMovies();
   usePopularMovies();
   useUpcomingMovies();
   useTrendingMovies();
+
   return (
-    <div className="">
+    <div className="w-full box-border">
       <Header />
-      <MainContainer />
-      <SecondaryContainer />
+      {showGptSearchPage ? (
+        <GptSearchPage />
+      ) : (
+        <>
+          <MainContainer />
+          <SecondaryContainer />
+        </>
+      )}
     </div>
   );
+  //   <div>
+  //     <Header />
+  //
+
+  //   </div>
+  // ) :
 };
 
 export default Browse;

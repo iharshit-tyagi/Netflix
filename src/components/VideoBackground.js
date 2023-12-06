@@ -10,6 +10,7 @@ const VideoBackground = ({ id }) => {
     <div className=" ">
       <iframe
         className="w-full aspect-video"
+        // className="w-[calc(100vw-10px)] aspect-video"
         src={"https://www.youtube.com/embed/" + key + "?&autoplay=1&mute=1"}
         title="Youtube Video Player"
         allowFullScreen
