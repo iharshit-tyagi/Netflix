@@ -72,11 +72,11 @@ const Header = () => {
             onClick={handleGptSearchPageToggle}
             className="border bg-white mt-5 mr-5 px-2 py-1  rounded-lg text-lg"
           >
-            GPT Search
+            {showTranlsate ? "Browse" : "GPT Search"}
           </button>
           <button
             onClick={handleSignOut}
-            className="border bg-white mt-5 mr-5 px-2 py-1  "
+            className="border bg-white mt-5 mr-5 px-2 py-1  rounded-lg text-lg "
           >
             Sign Out
           </button>
