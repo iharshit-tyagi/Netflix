@@ -1,21 +1,51 @@
 import React, { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { langTranslation } from "../utils/languageTranslations";
 import openai from "../utils/openAi";
+import { options } from "../utils/constants";
+import { addGptMovies } from "../utils/gptSlice";
+
 const GptSearchBar = () => {
+  const dispatch = useDispatch();
   const searchText = useRef(null);
   const lang = useSelector((store) => store.config.lang);
+  //Movie search on TMDB
+  const searchMovieTmdb = async (movie) => {
+    const data = await fetch(
+      "https://api.themoviedb.org/3/search/movie?query=" +
+        movie +
+        "&include_adult=false&language=en-US&page=1",
+      options
+    );
+    const json = await data.json();
+    return json.results;
+  };
   const handleGptSearchClick = () => {
     console.log(searchText.current.value);
     getSuggestions();
   };
   const getSuggestions = async () => {
+    const searchQuery =
+      "Act as a movie recommendation system and suggest me some movies based on the query : " +
+      searchText.current.value +
+      " . Suggest me only names of five movies as comma separated in response. Like the example Given ahead. Exaample is Don, Dhoom, Mummy, Train, Animal.";
     const movieResults = await openai.chat.completions.create({
-      messages: [{ role: "user", content: searchText.current.value }],
+      messages: [{ role: "user", content: searchQuery }],
       model: "gpt-3.5-turbo",
     });
-    console.log(movieResults.choices);
+    console.log(movieResults.choices[0]?.message?.content);
+    //will Make  array of movie suggestions
+    const gptMovieSuggestions = movieResults.choices[0]?.message?.content;
+    const gptMovieArray = gptMovieSuggestions.split(", ");
+
+    //Now getting data from TMDB
+    const tmdbPromiseArray = gptMovieArray.map((movie) => {
+      return searchMovieTmdb(movie);
+    });
+    const tmdbResults = await Promise.all(tmdbPromiseArray);
+    dispatch(addGptMovies(tmdbResults));
   };
+
   return (
     <div className="pt-[10%]  ">
       <form className=" mx-auto flex w-2/4 p-5 bg-black rounded-lg">
