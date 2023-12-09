@@ -21,7 +21,7 @@ const GptSearchBar = () => {
     return json.results;
   };
   const handleGptSearchClick = () => {
-    console.log(searchText.current.value);
+    // console.log(searchText.current.value);
     getSuggestions();
   };
   const getSuggestions = async () => {
@@ -33,7 +33,7 @@ const GptSearchBar = () => {
       messages: [{ role: "user", content: searchQuery }],
       model: "gpt-3.5-turbo",
     });
-    console.log(movieResults.choices[0]?.message?.content);
+    // console.log(movieResults.choices[0]?.message?.content);
     //will Make  array of movie suggestions
     const gptMovieSuggestions = movieResults.choices[0]?.message?.content;
     const gptMovieArray = gptMovieSuggestions.split(", ");
@@ -43,7 +43,10 @@ const GptSearchBar = () => {
       return searchMovieTmdb(movie);
     });
     const tmdbResults = await Promise.all(tmdbPromiseArray);
-    dispatch(addGptMovies(tmdbResults));
+
+    dispatch(
+      addGptMovies({ moviesList: tmdbResults, movieNames: gptMovieArray })
+    );
   };
 
   return (

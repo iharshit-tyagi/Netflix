@@ -3,7 +3,7 @@ import MovieCard from "./MovieCard";
 import { sliderSettings } from "../utils/constants";
 import Slider from "react-slick";
 import { useSelector } from "react-redux";
-const MoviesList = ({ title, movies }) => {
+const MovieSuggestionsList = ({ title, movies }) => {
   const showGptSearchPage = useSelector((store) => store.gpt.showGptSearchPage);
   if (!movies) return;
   const movieWithPoster = movies.filter((movie) => {
@@ -17,6 +17,7 @@ const MoviesList = ({ title, movies }) => {
       <Slider
         className="w-full overflow-visible  transition-all box-border"
         {...sliderSettings}
+        slidesToShow={1}
       >
         {movieWithPoster.map((movie) => {
           return (
@@ -30,4 +31,4 @@ const MoviesList = ({ title, movies }) => {
   );
 };
 
-export default MoviesList;
+export default MovieSuggestionsList;
