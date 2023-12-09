@@ -51,13 +51,13 @@ const Header = () => {
     dispatch(updateLang(e.target.value));
   };
   return (
-    <div className="flex justify-between w-full  bg-gradient-to-b from-black absolute z-10 top-0">
-      <img className="w-48 pl-4 pt-3" src={NF_URL} alt="logo" />
+    <div className="flex-col md:flex-row flex justify-between w-full  bg-gradient-to-b from-black absolute z-10 top-0">
+      <img className="mx-auto md:mx-0 w-48 pl-4 pt-3" src={NF_URL} alt="logo" />
       {user && (
-        <div>
+        <div className="mx-auto md:mx-0 ">
           {showTranlsate && (
             <select
-              className="bg-gray-600 text-xl m-4 px-2 py-2  text-white rounded-md"
+              className="bg-gray-600 text-base md:text-xl m-4 px-2 py-2  text-white rounded-md"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((ele) => {
@@ -72,13 +72,13 @@ const Header = () => {
 
           <button
             onClick={handleGptSearchPageToggle}
-            className="border bg-white mt-5 mr-5 px-2 py-1  rounded-lg text-lg"
+            className="border bg-white mt-5 mr-5 px-2 py-1  rounded-lg  text-base md:text-xl"
           >
             {showTranlsate ? langTranslation[lang]?.browse : "GPT Search"}
           </button>
           <button
             onClick={handleSignOut}
-            className="border bg-white mt-5 mr-5 px-2 py-1  rounded-lg text-lg "
+            className="border bg-white mt-5 mr-5 px-2 py-1  rounded-lg text-base md:text-xl "
           >
             {showTranlsate ? langTranslation[lang]?.signOut : "Sign Out"}
           </button>
