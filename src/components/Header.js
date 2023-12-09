@@ -8,7 +8,9 @@ import { toggleGptSearchPage } from "../utils/gptSlice";
 import { NF_URL } from "../utils/constants";
 import { SUPPORTED_LANGUAGES } from "../utils/constants";
 import { updateLang } from "../utils/configSlice";
+import { langTranslation } from "../utils/languageTranslations";
 const Header = () => {
+  const lang = useSelector((store) => store.config.lang);
   const user = useSelector((store) => store.user);
   const showTranlsate = useSelector((store) => store.gpt.showGptSearchPage);
   const navigate = useNavigate();
@@ -72,13 +74,13 @@ const Header = () => {
             onClick={handleGptSearchPageToggle}
             className="border bg-white mt-5 mr-5 px-2 py-1  rounded-lg text-lg"
           >
-            {showTranlsate ? "Browse" : "GPT Search"}
+            {showTranlsate ? langTranslation[lang]?.browse : "GPT Search"}
           </button>
           <button
             onClick={handleSignOut}
             className="border bg-white mt-5 mr-5 px-2 py-1  rounded-lg text-lg "
           >
-            Sign Out
+            {showTranlsate ? langTranslation[lang]?.signOut : "Sign Out"}
           </button>
         </div>
       )}

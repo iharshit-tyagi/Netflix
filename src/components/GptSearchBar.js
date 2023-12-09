@@ -28,12 +28,12 @@ const GptSearchBar = () => {
     const searchQuery =
       "Act as a movie recommendation system and suggest me some movies based on the query : " +
       searchText.current.value +
-      " . Suggest me only names of five movies as comma separated in response. Like the example Given ahead. Exaample is Don, Dhoom, Mummy, Train, Animal.";
+      " . Suggest me only names of 10 movies as comma separated in response. Like the example Given ahead. Exaample is Don, Dhoom, Mummy, Train, Animal.";
     const movieResults = await openai.chat.completions.create({
       messages: [{ role: "user", content: searchQuery }],
       model: "gpt-3.5-turbo",
     });
-    // console.log(movieResults.choices[0]?.message?.content);
+
     //will Make  array of movie suggestions
     const gptMovieSuggestions = movieResults.choices[0]?.message?.content;
     const gptMovieArray = gptMovieSuggestions.split(", ");

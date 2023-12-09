@@ -2,7 +2,7 @@ import { ORIGNAL_IMG_BASE_URL } from "../utils/constants";
 const MovieCard = ({ posterUrl }) => {
   if (!posterUrl) return;
   return (
-    <div className="m-2">
+    <div className="m-2 rounded-lg">
       <img
         className="rounder-md"
         src={ORIGNAL_IMG_BASE_URL + posterUrl}
