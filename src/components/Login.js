@@ -91,9 +91,9 @@ const Login = () => {
   return (
     <div className=" bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/c906271d-7184-4eec-83c9-b6d4c1a068ec/728874a6-eeda-400a-9bcf-a935a1408a4f/IN-en-20231127-popsignuptwoweeks-perspective_alpha_website_medium.jpg')] h-screen bg-cover bg-no-repeat">
       <Header />
-      <div className="pt-20">
-        <form className="bg-black bg-opacity-80 p-9 w-2/5 flex flex-col mx-auto ">
-          <h3 className="text-white text-3xl font-semibold mb-3">
+      <div className="pt-48 md:pt-32">
+        <form className="bg-black bg-opacity-80 p-6 md:p-9 w-11/12 md:w-2/5 flex flex-col mx-auto ">
+          <h3 className="text-white text-xl md:text-3xl font-semibold mb-3">
             {isSignInForm ? "Sign in" : "Sign up"}
           </h3>
           {isSignInForm || (
@@ -101,26 +101,26 @@ const Login = () => {
               ref={name}
               type="text"
               placeholder="Name"
-              className="p-4 m-2  bg-[#333] text-white "
+              className="p-2 md:p-4 m-2  bg-[#333] text-white "
             ></input>
           )}
           <input
             ref={email}
             type="text"
             placeholder="Email or phone number"
-            className="p-4 m-2  bg-[#333] text-white "
+            className="p-2 md:p-4 m-2  bg-[#333] text-white "
           ></input>
           <input
             type="password"
             ref={password}
             placeholder="Password"
-            className="p-4 m-2  bg-[#333] text-white "
+            className="p-2 md:p-4 m-2  bg-[#333] text-white "
           ></input>
           {isSignInForm || (
             <input
               type="password"
               placeholder="Confirm Password"
-              className="p-4 m-2 bg-[#333] text-white "
+              className="p-2 md:p-4 m-2 bg-[#333] text-white "
             ></input>
           )}
           <button
@@ -128,13 +128,15 @@ const Login = () => {
             onSubmit={(e) => {
               e.preventDefault();
             }}
-            className="p-4 m-2  bg-red-600 text-white  text-center font-semibold"
+            className="p-2 md:p-4 m-2  bg-red-600 text-white  text-center font-semibold"
             onClick={handleSubmit}
           >
             {isSignInForm ? "Sign in" : "Sign up"}
           </button>
           {validationMessage && (
-            <p className="mt-2 text-red-500">{validationMessage}</p>
+            <p className="text-sm md:text-base mt-2 text-red-500">
+              {validationMessage}
+            </p>
           )}
           <div className="flex justify-between mt-2">
             <div>
@@ -156,7 +158,7 @@ const Login = () => {
               </span>
             </p>
           ) : (
-            <p className="text-[#b2b2b2] ml-2 mt-5">
+            <p className="text-[#b2b2b2] ml-2 mt-3 md:mt-5">
               Already a User?
               <span className="text-white cursor-pointer" onClick={toggleForm}>
                 Sign in.
