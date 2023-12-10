@@ -22,8 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#firebase
-src/utils/Firebase.js
-
-
+#Env Var
 .env
