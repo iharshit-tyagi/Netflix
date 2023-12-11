@@ -2,9 +2,7 @@ import React from "react";
 import MovieCard from "./MovieCard";
 import { sliderSettings } from "../utils/constants";
 import Slider from "react-slick";
-import { useSelector } from "react-redux";
 const MoviesList = ({ title, movies }) => {
-  const showGptSearchPage = useSelector((store) => store.gpt.showGptSearchPage);
   if (!movies) return;
   const movieWithPoster = movies.filter((movie) => {
     return movie.poster_path;
