@@ -1,13 +1,21 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import MovieCard from "./MovieCard";
 import { langTranslation } from "../utils/languageTranslations";
+import { clearGptMovies } from "../utils/gptSlice";
 const GptMovieSuggestions = () => {
+  const dispatch = useDispatch();
   const gpt = useSelector((store) => store.gpt);
-  const gptMovieTitles = gpt.gptMovieNames;
+  // const gptMovieTitles = gpt.gptMovieNames;
   const gptMovieList = gpt.movieList;
+  useEffect(() => {
+    return () => {
+      dispatch(clearGptMovies());
+    };
+  }, []);
+
   const lang = useSelector((store) => store.config.lang);
-  if (!gptMovieTitles) return null;
+  if (!gptMovieList) return null;
   return (
     <div className="bg-black bg-opacity-80 p-2 md:p-4 mt-4 ">
       <h2 className="text-white text-base md:text-2xl font-semibold pb-2 pl-3 md:pl-6 ">

@@ -1,11 +1,13 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { langTranslation } from "../utils/languageTranslations";
 import openai from "../utils/openAi";
 import { options } from "../utils/constants";
-import { addGptMovies } from "../utils/gptSlice";
+import { addGptMovies, clearGptMovies } from "../utils/gptSlice";
+import ShimmerGptMovies from "./ShimmerGptMovies";
 
 const GptSearchBar = () => {
+  const [showShimmer, SetShowShimmer] = useState(false);
   const dispatch = useDispatch();
   const searchText = useRef(null);
   const lang = useSelector((store) => store.config.lang);
@@ -21,8 +23,13 @@ const GptSearchBar = () => {
     return json.results;
   };
   const handleGptSearchClick = () => {
-    // console.log(searchText.current.value);
+    console.log(searchText.current.value);
+    SetShowShimmer(true);
+    dispatch(clearGptMovies());
     getSuggestions();
+    searchText.current.value = "";
+
+    console.log(showShimmer);
   };
   const getSuggestions = async () => {
     const searchQuery =
@@ -47,6 +54,7 @@ const GptSearchBar = () => {
     dispatch(
       addGptMovies({ moviesList: tmdbResults, movieNames: gptMovieArray })
     );
+    SetShowShimmer(false);
   };
 
   return (
@@ -69,6 +77,7 @@ const GptSearchBar = () => {
           {langTranslation[lang]?.search}
         </button>
       </form>
+      {showShimmer && <ShimmerGptMovies />}
     </div>
   );
 };
