@@ -4,7 +4,9 @@ import { useSelector } from "react-redux";
 const VideoBackground = ({ id }) => {
   //fetch trailer data and update the store
   useTrailer(id);
+
   const movie = useSelector((store) => store.movie);
+
   const { key } = movie?.trailer;
   return (
     <div className=" ">

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MovieCard from "./MovieCard";
 import { langTranslation } from "../utils/languageTranslations";
 import { clearGptMovies } from "../utils/gptSlice";
+import { Link } from "react-router-dom";
 const GptMovieSuggestions = () => {
   const dispatch = useDispatch();
   const gpt = useSelector((store) => store.gpt);
@@ -23,7 +24,11 @@ const GptMovieSuggestions = () => {
       </h2>
       <div className="pl-1 md:pl-6 grid md:grid-cols-5 grid-cols-2">
         {gptMovieList.map((list) => {
-          return <MovieCard posterUrl={list[0]?.poster_path} />;
+          return (
+            <Link key={list[0].id} to={"/" + list[0].id}>
+              <MovieCard posterUrl={list[0]?.poster_path} />;
+            </Link>
+          );
         })}
       </div>
     </div>

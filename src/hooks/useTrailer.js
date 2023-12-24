@@ -17,6 +17,7 @@ const useTrailer = (id) => {
       return ele.type == "Trailer";
     });
     const trailerData = filteredData.length ? filteredData[0] : json.results[0];
+
     dispatch(addTrailer(trailerData));
   };
   useEffect(() => {
