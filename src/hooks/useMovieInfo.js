@@ -7,9 +7,9 @@ const useMovieInfo = (movieId) => {
 
   useEffect(() => {
     getData();
-
+    window.scrollTo(0, 0);
     return () => {
-      dispatch(clearMovieInfo);
+      dispatch(clearMovieInfo());
     };
   }, []);
   const getData = async () => {

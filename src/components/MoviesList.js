@@ -3,11 +3,11 @@ import MovieCard from "./MovieCard";
 import { sliderSettings } from "../utils/constants";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
+
 const MoviesList = ({ title, movies }) => {
   const handleMovieClick = (e) => {
     if (!isSliding) {
       // Your navigation logic here
-      console.log("Link clicked");
     } else {
       // Prevent the default behavior (link navigation) during sliding
       e.preventDefault();
@@ -32,8 +32,8 @@ const MoviesList = ({ title, movies }) => {
       >
         {movieWithPoster.map((movie) => {
           return (
-            <Link to={"/" + movie.id}>
-              <div className="" key={movie.id} onClick={handleMovieClick}>
+            <Link key={movie.id} to={"/" + movie.id}>
+              <div className="" onClick={handleMovieClick}>
                 <MovieCard posterUrl={movie.poster_path} />
               </div>
             </Link>
