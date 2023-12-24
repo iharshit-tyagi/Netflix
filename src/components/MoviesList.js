@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import MovieCard from "./MovieCard";
 import { sliderSettings } from "../utils/constants";
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
+
 const MoviesList = ({ title, movies }) => {
+  const handleMovieClick = (e) => {
+    if (!isSliding) {
+      // Your navigation logic here
+    } else {
+      // Prevent the default behavior (link navigation) during sliding
+      e.preventDefault();
+    }
+  };
+  const [isSliding, setIsSliding] = useState(false);
+
   if (!movies) return;
   const movieWithPoster = movies.filter((movie) => {
     return movie.poster_path;
@@ -15,12 +27,16 @@ const MoviesList = ({ title, movies }) => {
       <Slider
         className="w-full overflow-visible  transition-all box-border"
         {...sliderSettings}
+        beforeChange={() => setIsSliding(true)}
+        afterChange={() => setIsSliding(false)}
       >
         {movieWithPoster.map((movie) => {
           return (
-            <div className="" key={movie.id}>
-              <MovieCard posterUrl={movie.poster_path} />
-            </div>
+            <Link key={movie.id} to={"/" + movie.id}>
+              <div className="" onClick={handleMovieClick}>
+                <MovieCard posterUrl={movie.poster_path} />
+              </div>
+            </Link>
           );
         })}
       </Slider>

@@ -6,8 +6,11 @@ import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import usePopularMovies from "../hooks/usePopularMovies";
 import useUpcomingMovies from "../hooks/useUpcomingMovies";
 import useTrendingMovies from "../hooks/useTrendingMovies";
-import GptSearchPage from "./GptSearchPage";
+// import GptSearchPage from "./GptSearchPage";
 import { useSelector } from "react-redux";
+import { lazy, Suspense } from "react";
+
+const GptSearchPage = lazy(() => import("./GptSearchPage"));
 
 const Browse = () => {
   //Fetches now playing Movies and Update the store
@@ -22,7 +25,9 @@ const Browse = () => {
     <div className="w-full box-border">
       <Header />
       {showGptSearchPage ? (
-        <GptSearchPage />
+        <Suspense fallback={<h2>Loading...</h2>}>
+          <GptSearchPage />
+        </Suspense>
       ) : (
         <>
           <MainContainer />

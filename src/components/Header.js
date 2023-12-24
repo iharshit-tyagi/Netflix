@@ -15,6 +15,7 @@ const Header = () => {
   const showTranlsate = useSelector((store) => store.gpt.showGptSearchPage);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {

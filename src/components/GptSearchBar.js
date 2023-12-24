@@ -23,13 +23,10 @@ const GptSearchBar = () => {
     return json.results;
   };
   const handleGptSearchClick = () => {
-    console.log(searchText.current.value);
     SetShowShimmer(true);
     dispatch(clearGptMovies());
     getSuggestions();
     searchText.current.value = "";
-
-    console.log(showShimmer);
   };
   const getSuggestions = async () => {
     const searchQuery =
