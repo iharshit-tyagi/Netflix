@@ -25,7 +25,7 @@ const Browse = () => {
     <div className="w-full box-border">
       <Header />
       {showGptSearchPage ? (
-        <Suspense>
+        <Suspense fallback={<h2>Loading...</h2>}>
           <GptSearchPage />
         </Suspense>
       ) : (
