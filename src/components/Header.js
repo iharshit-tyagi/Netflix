@@ -52,7 +52,7 @@ const Header = () => {
     dispatch(updateLang(e.target.value));
   };
   return (
-    <div className="flex-col md:flex-row flex justify-between w-full  bg-gradient-to-b from-black absolute z-10 top-0">
+    <div className="flex-col md:flex-row flex fixed justify-between w-full  bg-gradient-to-b from-black  z-10 top-0">
       <img className="mx-auto md:mx-0 w-48 pl-4 pt-3" src={NF_URL} alt="logo" />
       {user && (
         <div className="mx-auto md:mx-0 ">

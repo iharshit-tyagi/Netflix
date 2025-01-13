@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { langTranslation } from "../utils/languageTranslations";
-import openai from "../utils/openAi";
+import model from "../utils/openAi";
 import { options } from "../utils/constants";
 import { addGptMovies, clearGptMovies } from "../utils/gptSlice";
 import ShimmerGptMovies from "./ShimmerGptMovies";
@@ -33,13 +33,17 @@ const GptSearchBar = () => {
       "Act as a movie recommendation system and suggest me some movies based on the query : " +
       searchText.current.value +
       " . Suggest me only names of 10 movies as comma separated in response. Like the example Given ahead. Exaample is Don, Dhoom, Mummy, Train, Animal.";
-    const movieResults = await openai.chat.completions.create({
-      messages: [{ role: "user", content: searchQuery }],
-      model: "gpt-3.5-turbo",
-    });
+    // const movieResults = await model.chat.completions.create({
+    //   messages: [{ role: "user", content: searchQuery }],
+    //   model: "gpt-3.5-turbo",
+    // });
+    const movieResults = await model.generateContent(searchQuery);
+    console.log(movieResults?.response?.candidates[0]?.content?.parts[0]?.text);
+    
 
     //will Make  array of movie suggestions
-    const gptMovieSuggestions = movieResults.choices[0]?.message?.content;
+    // const gptMovieSuggestions = movieResults.choices[0]?.message?.content;
+    const gptMovieSuggestions = movieResults?.response?.candidates[0]?.content?.parts[0]?.text;
     const gptMovieArray = gptMovieSuggestions.split(", ");
 
     //Now getting data from TMDB
